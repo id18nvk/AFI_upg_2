@@ -10,8 +10,8 @@ namespace PrenumerantSystem.Models
         public PrenumerantDetails(){}
 
         public int pr_Id { get; set; }
-        public string pr_Tlfnr { get; set; }
         public string pr_Firstname { get; set; }
         public string pr_Lastname { get; set; }
+        public string pr_Tlfnr { get; set; }
     }
 }

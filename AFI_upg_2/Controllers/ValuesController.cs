@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PrenumerantSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,18 @@ namespace AFI_upg_2.Controllers
             return new string[] { "value1kzdksdnskn", "value2" };
         }
 
-        // GET api/<ValuesController>/5
+        //--------------- GET PRENUMERANT -----------------
+        // get api/<valuescontroller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public PrenumerantDetails getPrenumerant(int id)
         {
-            return "value";
+            _ = new PrenumerantDetails();
+            PrenumerantMethods pm = new PrenumerantMethods();
+
+            PrenumerantDetails pd = pm.GetPrenumerant(id, out string errormsg);
+
+
+            return pd;
         }
 
         // POST api/<ValuesController>
