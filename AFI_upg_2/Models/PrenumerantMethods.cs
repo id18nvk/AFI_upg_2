@@ -49,6 +49,15 @@ namespace PrenumerantSystem.Models
                     pd.pr_Lastname = myDS.Tables["Prenumerant"].Rows[i]["pr_Lastname"].ToString();
                     pd.pr_Tlfnr = myDS.Tables["Prenumerant"].Rows[i]["pr_Tlfnr"].ToString();
                     
+                    pd.pr_Adress = myDS.Tables["Prenumerant"].Rows[i]["pr_Adress"].ToString();
+                    pd.pr_Ort = myDS.Tables["Prenumerant"].Rows[i]["pr_Ort"].ToString();
+                    pd.pr_PostNr = myDS.Tables["Prenumerant"].Rows[i]["pr_PostNr"].ToString();
+                    
+                    pd.pr_FkAdress = myDS.Tables["Prenumerant"].Rows[i]["pr_FkAdress"].ToString();
+                    pd.pr_FkOrt = myDS.Tables["Prenumerant"].Rows[i]["pr_FkOrt"].ToString();
+                    pd.pr_FkPostNr = myDS.Tables["Prenumerant"].Rows[i]["pr_FkPostNr"].ToString();
+
+
                     errormsg = "";
                     return pd;
                 }
