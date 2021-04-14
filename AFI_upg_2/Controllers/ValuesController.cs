@@ -17,7 +17,7 @@ namespace AFI_upg_2.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1kzdksdnskn", "value2" };
+            return new string[] { "value1", "value2" };
         }
 
         //--------------- GET PRENUMERANT -----------------
