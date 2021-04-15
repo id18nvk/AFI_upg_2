@@ -21,7 +21,7 @@ namespace AnnonsSystem.Models
 
             //sqlstring och lägg till en skribent i databasen
             String sqlstring = "INSERT INTO Tbl_Annonsorer (an_Namn, an_Tlfnr, an_OrgNr, an_Adress, an_Ort, an_PostNr, an_FkAdress, an_FkOrt, an_FkPostNr) " +
-                "VALUES(@an_Namn, @an_Tlfnr, @an_OrgNr, @an_Adress, @an_Ort, @an_PostNr, @an_FkAdress = NULL, @an_FkOrt = NULL, @an_FkPostNr = NULL) SELECT SCOPE_IDENTITY()";
+                "VALUES(@an_Namn, @an_Tlfnr, @an_OrgNr, @an_Adress, @an_Ort, @an_PostNr, @an_FkAdress, @an_FkOrt, @an_FkPostNr) SELECT SCOPE_IDENTITY()";
 
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
