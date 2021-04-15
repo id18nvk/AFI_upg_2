@@ -40,10 +40,13 @@ namespace AFI_upg_2.Controllers
         {
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        //--------------- UPDATE PRENUMERANT -----------------
+        // PUT api/<ValuesController>
+        [HttpPut]
+        public void Put([FromBody] PrenumerantDetails pd)
         {
+            PrenumerantMethods pm = new PrenumerantMethods();
+            pm.UpdatePrenumerant(pd, out string errormsg);
         }
 
         // DELETE api/<ValuesController>/5

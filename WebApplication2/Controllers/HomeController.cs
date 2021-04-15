@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PrenumerantSystem.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WebApiApp.Helper;
@@ -70,7 +67,7 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetPrenumerant(int p_id)
+        public async Task<IActionResult> PrenumerantFormular(int p_id)
         {
             PrenumerantDetails prenumerant = new PrenumerantDetails();
             HttpClient client = _api.Initial();
@@ -82,7 +79,28 @@ namespace WebApplication2.Controllers
                 prenumerant = JsonConvert.DeserializeObject<PrenumerantDetails>(result);
             }
             return View(prenumerant);
+
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PrenumerantFormular2(PrenumerantDetails pd)
+        {
+            PrenumerantDetails prenumerant = new PrenumerantDetails();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.PutAsJsonAsync<PrenumerantDetails>("api/Values", pd);
+
+            if (res.IsSuccessStatusCode)
+            {
+                var result = res.Content.ReadAsStringAsync().Result;
+                prenumerant = JsonConvert.DeserializeObject<PrenumerantDetails>(result);
+            }
+
+            TempData["id"] = prenumerant.pr_Id; 
+            return Content("allt gich bra");
+        }
+
+
+
 
 
         public IActionResult Privacy()

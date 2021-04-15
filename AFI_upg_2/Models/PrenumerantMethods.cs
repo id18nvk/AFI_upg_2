@@ -78,5 +78,67 @@ namespace PrenumerantSystem.Models
             }
         }
 
+        
+        
+        
+        
+        //*******************UPDATE PRENUMERANT**********************
+        public int UpdatePrenumerant(PrenumerantDetails pd, out string errormsg)
+        {
+            //SqlConnection
+            SqlConnection dbConnection = new SqlConnection();
+
+            //koppling
+            dbConnection.ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PrenumeranterDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            //sqlstring och lägg till en skribent i databasen
+            String sqlstring = "UPDATE Tbl_Prenumeranter SET pr_Firstname = @pr_Firstname, pr_Lastname = @pr_Lastname, " +
+                "pr_Tlfnr = @pr_Tlfnr, pr_Adress = @pr_Adress, pr_Ort = @pr_Ort, pr_PostNr = @pr_PostNr, pr_FkAdress = @pr_FkAdress, pr_FkOrt = @pr_FkOrt, pr_FkPostNr = @pr_FkPostNr WHERE pr_Id = @pr_Id";
+
+            SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+
+            dbCommand.Parameters.Add("pr_Id", SqlDbType.Int).Value = pd.pr_Id;
+            dbCommand.Parameters.Add("pr_Firstname", SqlDbType.NVarChar, 20).Value = pd.pr_Firstname;
+            dbCommand.Parameters.Add("pr_Lastname", SqlDbType.NVarChar, 20).Value = pd.pr_Lastname;
+            dbCommand.Parameters.Add("pr_Tlfnr", SqlDbType.NVarChar, 20).Value = pd.pr_Tlfnr;
+
+            dbCommand.Parameters.Add("pr_Adress", SqlDbType.NVarChar, 30).Value = pd.pr_Adress;
+            dbCommand.Parameters.Add("pr_Ort", SqlDbType.NVarChar, 30).Value = pd.pr_Ort;
+            dbCommand.Parameters.Add("pr_PostNr", SqlDbType.NVarChar, 30).Value = pd.pr_PostNr;
+
+            dbCommand.Parameters.Add("pr_FkAdress", SqlDbType.NVarChar, 30).Value = pd.pr_FkAdress;
+            dbCommand.Parameters.Add("pr_FkOrt", SqlDbType.NVarChar, 30).Value = pd.pr_FkOrt;
+            dbCommand.Parameters.Add("pr_FkPostNr", SqlDbType.NVarChar, 30).Value = pd.pr_FkPostNr;
+
+
+
+            try
+            {
+                dbConnection.Open();
+                int i = 0;
+                i = dbCommand.ExecuteNonQuery();
+
+                if (i == 1)
+                {
+                    errormsg = "";
+                }
+                else
+                {
+                    errormsg = "kunde inte ändra";
+                }
+                return (i);
+            }
+            catch (Exception e)
+            {
+                errormsg = e.Message;
+                return 0;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+        }
+
     }
 }
