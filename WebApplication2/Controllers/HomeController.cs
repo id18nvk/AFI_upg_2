@@ -29,7 +29,7 @@ namespace WebApplication2.Controllers
         public IActionResult Index(string typ)
         {
             if (typ == "prenumerant") { 
-                return RedirectToAction("Index");//skicka vidare
+                return RedirectToAction("Index");//skicka vidarekk
 
             } else if (typ == "foretag")
             {
