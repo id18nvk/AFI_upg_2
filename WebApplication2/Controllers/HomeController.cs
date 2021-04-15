@@ -85,18 +85,52 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public async Task<IActionResult> PrenumerantFormular2(PrenumerantDetails pd)
         {
-            PrenumerantDetails prenumerant = new PrenumerantDetails();
+            //PrenumerantDetails prenumerant = new PrenumerantDetails();
             HttpClient client = _api.Initial();
             HttpResponseMessage res = await client.PutAsJsonAsync<PrenumerantDetails>("api/Values", pd);
 
             if (res.IsSuccessStatusCode)
             {
-                var result = res.Content.ReadAsStringAsync().Result;
-                prenumerant = JsonConvert.DeserializeObject<PrenumerantDetails>(result);
+                TempData["p_id"] = pd.pr_Id;
+                return RedirectToAction("SkapaAnnons");
             }
 
-            TempData["id"] = prenumerant.pr_Id; 
-            return Content("allt gich bra");
+            return Content("sämst");
+        }
+
+
+        [HttpGet]
+        public IActionResult SkapaAnnons()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SkapaAnnons(AdDetails ad)
+        {
+            AdMethods am = new AdMethods();
+
+            if (TempData["f_id"] != null)
+            {
+                ad.ad_F_Annonsor = (int)TempData["f_id"];
+                ad.ad_AdPrice = 0;
+                am.CreateAd(ad, out string errormsg);         
+                //lägg till i databas
+
+            } else if (TempData["p_id"] != null)
+            {
+                ad.ad_P_Annonsor = (int)TempData["p_id"];
+                ad.ad_AdPrice = 40;
+                am.CreateAd(ad, out string errormsg);
+
+                //lägg till i databas
+            }
+
+
+
+            return Content("annons skapad");
+
         }
 
 
