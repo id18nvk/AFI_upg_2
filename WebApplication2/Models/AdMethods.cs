@@ -53,5 +53,71 @@ namespace AnnonsSystem.Models
                 dbConnection.Close();
             }
         }
+
+        public List<AdDetails> GetAdList(out string errormsg)
+        {
+            //SqlConnection
+            SqlConnection dbConnection = new SqlConnection();
+
+            //koppling
+            dbConnection.ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AnnonsDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+
+            //sqlstring och lägg till en user i databasen
+            String sqlstring = "SELECT * FROM Tbl_Ads";
+            SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+
+            //Skapa en adapter
+            SqlDataAdapter myAdapter = new SqlDataAdapter(dbCommand);
+            DataSet myDS = new DataSet();
+
+            List<AdDetails> AdList = new List<AdDetails>();
+
+
+            try
+            {
+                dbConnection.Open();
+
+                myAdapter.Fill(myDS, "Ads");
+                int count = 0;
+                int i = 0;
+
+                count = myDS.Tables["Ads"].Rows.Count;
+
+                if (count > 0)
+                {
+                    while (i < count)
+                    {
+                        AdDetails ad = new AdDetails();
+                        ad.ad_Id = Convert.ToInt16(myDS.Tables["Ads"].Rows[i]["ad_Id"]);
+                        ad.ad_Title = myDS.Tables["Ads"].Rows[i]["ad_Title"].ToString();
+                        ad.ad_Price = Convert.ToInt16(myDS.Tables["Ads"].Rows[i]["ad_Price"]);
+                        ad.ad_Content = myDS.Tables["Ads"].Rows[i]["ad_Content"].ToString();
+                        ad.ad_P_Annonsor = Convert.ToInt16(myDS.Tables["Ads"].Rows[i]["ad_P_Annonsor"]);
+                        ad.ad_F_Annonsor = Convert.ToInt16(myDS.Tables["Ads"].Rows[i]["ad_F_Annonsor"]);
+
+                        i++;
+                        AdList.Add(ad);
+                    }
+                    errormsg = "";
+                    return AdList;
+                }
+                else
+                {
+                    errormsg = "no Ads, something went wrong";
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                errormsg = e.Message;
+                return null;
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+        }
     }
 }

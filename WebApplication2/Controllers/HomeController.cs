@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PrenumerantSystem.Models;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace WebApplication2.Controllers
 
             } else if (typ == "foretag")
             {
-                return RedirectToAction("Index1");
+                return RedirectToAction("ForetagsFormular");
             } else
             {
                 return Content("fel: väljett alternativ");
@@ -45,19 +46,37 @@ namespace WebApplication2.Controllers
         }
 
 
+        //[HttpGet]
+        //public IActionResult Index1()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public IActionResult Index1(AnnonsorDetails ad)
+        //{
+        //    AnnonsorMethods am = new AnnonsorMethods();
+        //    int id = am.InsertAnnosor(ad, out string errormsg);
+
+        //    return RedirectToAction("Index1");
+        //}
+
         [HttpGet]
-        public IActionResult Index1()
+        public IActionResult ForetagsFormular()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index1(AnnonsorDetails ad)
+        public IActionResult ForetagsFormular(AnnonsorDetails ad)
         {
             AnnonsorMethods am = new AnnonsorMethods();
             int id = am.InsertAnnosor(ad, out string errormsg);
+            
+            TempData["f_id"] = id;
 
-            return RedirectToAction("Index1");
+
+            return RedirectToAction("SkapaAnnons");
         }
 
         [HttpGet]
@@ -114,26 +133,35 @@ namespace WebApplication2.Controllers
             if (TempData["f_id"] != null)
             {
                 ad.ad_F_Annonsor = (int)TempData["f_id"];
-                ad.ad_AdPrice = 0;
-                am.CreateAd(ad, out string errormsg);         
+                ad.ad_AdPrice = 40;
+                am.CreateAd(ad, out string errormsg);
                 //lägg till i databas
+                TempData["f_id"] = null;
+
+
 
             } else if (TempData["p_id"] != null)
             {
                 ad.ad_P_Annonsor = (int)TempData["p_id"];
-                ad.ad_AdPrice = 40;
+                ad.ad_AdPrice = 0;
                 am.CreateAd(ad, out string errormsg);
-
                 //lägg till i databas
+                TempData["p_id"] = null;
+
+
             }
-
-
-
-            return Content("annons skapad");
-
+            return RedirectToAction("Annonser");
         }
 
 
+        public IActionResult Annonser()
+        {
+            List<AdDetails> adl = new List<AdDetails>();
+            AdMethods am = new AdMethods();
+            adl = am.GetAdList(out string errormsg);
+
+            return View(adl);
+        }
 
 
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrenumerantSystem", "AFI_upg_2\PrenumerantSystem.csproj", "{9655D04E-6587-430A-BAB8-3031E59A2378}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnnonsSystem", "WebApplication2\AnnonsSystem.csproj", "{5C1B8C4F-C534-477A-B27F-0926B5ADE8AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnnonsSystem", "WebApplication2\AnnonsSystem.csproj", "{5C1B8C4F-C534-477A-B27F-0926B5ADE8AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

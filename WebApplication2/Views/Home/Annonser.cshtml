@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AnnonsSystem.Models.AdDetails>
+
+@{
+    ViewData["Title"] = "Annonser";
+}
+
+<h1>Annonser</h1>
+
+<p>
+    <a asp-action="Index">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.ad_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ad_Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ad_Content)
+            </th>
+        
+            <th>
+                
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.ad_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ad_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ad_Content)
+            </td>
+            <td>
+                @if( item.ad_F_Annonsor != 0)
+                {
+                    <p>Företagsannons</p>
+                }
+                else
+                {
+                    <p>Prenumerantannons</p>
+                }
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>

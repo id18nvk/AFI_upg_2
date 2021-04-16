@@ -3,14 +3,20 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Välkommen!</h1>
+    
 </div>
 
-<form asp-action="Index">
-    <input type="radio" id="prenumerant" name="typ" value="prenumerant">
-    <label for="prenumerant">Prenumerant</label><br>
-    <input type="radio" id="foretag" name="typ" value="foretag">
-    <label for="foretag">Foretag</label><br> 
-    <input type="submit" value="Submit">
-</form>
+<h2>Skappa en annons! 
+    Är du prenumerant eller företag?</h2>
+
+<hr />
+<div>
+    <form asp-action="Index">
+        <input type="radio" id="prenumerant" name="typ" value="prenumerant">
+        <label for="prenumerant">Prenumerant</label><br>
+        <input type="radio" id="foretag" name="typ" value="foretag">
+        <label for="foretag">Foretag</label><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
